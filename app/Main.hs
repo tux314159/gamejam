@@ -4,22 +4,15 @@ module Main where
 
 import SDL
 import Control.Monad (unless)
+import Control.Monad.State
 import GHC.Word (Word8)
 import Game.SdlUtils.Events
+import Game.Lib
 
 main :: IO ()
 main = do
   initializeAll
   window <- createWindow "Haskell SDL2 stuffs" defaultWindow
   renderer <- createRenderer window (-1) defaultRenderer
-  gameLoop renderer 1
+  runStateT (gameLoop renderer) $ GameState { _gamei = 0 }
   destroyWindow window
-
-gameLoop :: Renderer -> Word8 -> IO()
-gameLoop renderer i = do
-  events <- pollEvents
-  rendererDrawColor renderer $= V4 i 64 (255 - i) 255
-  clear renderer
-  present renderer
-  delay 5
-  unless (any isQuitEvent events) $ gameLoop renderer $ (i + 1) `rem` 255
