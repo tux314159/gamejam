@@ -4,11 +4,11 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 
-name:           haskell-sdl-test
+name:           gamejam
 version:        0.1.0.0
 description:    Please see the README on GitHub at <https://github.com/githubuser/haskell-sdl-test#readme>
-homepage:       https://github.com/githubuser/haskell-sdl-test#readme
-bug-reports:    https://github.com/githubuser/haskell-sdl-test/issues
+homepage:       https://github.com/erratic-c-programmer/gamejam#readme
+bug-reports:    https://github.com/erratic-c-programmer/gamejam/issues
 author:         Author name here
 maintainer:     example@example.com
 copyright:      2022 Author name here
@@ -21,13 +21,13 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/githubuser/haskell-sdl-test
+  location: https://github.com/erratic-c-programmer/gamejam
 
 library
   exposed-modules:
       Lib
   other-modules:
-      Paths_haskell_sdl_test
+      Paths_gamejam
   hs-source-dirs:
       src
   build-depends:
@@ -35,29 +35,29 @@ library
     , sdl2 ==2.5.*
   default-language: Haskell2010
 
-executable haskell-sdl-test-exe
+executable gamejam-exe
   main-is: Main.hs
   other-modules:
-      Paths_haskell_sdl_test
+      Paths_gamejam
   hs-source-dirs:
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
-    , haskell-sdl-test
+    , gamejam
     , sdl2 ==2.5.*
   default-language: Haskell2010
 
-test-suite haskell-sdl-test-test
+test-suite gamejam-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_haskell_sdl_test
+      Paths_gamejam
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
-    , haskell-sdl-test
+    , gamejam
     , sdl2 ==2.5.*
   default-language: Haskell2010
