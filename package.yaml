@@ -1,6 +1,6 @@
-name:                haskell-sdl-test
+name:                gamejam
 version:             0.1.0.0
-github:              "githubuser/haskell-sdl-test"
+github:              "erratic-c-programmer/gamejam"
 license:             BSD3
 author:              "Author name here"
 maintainer:          "example@example.com"
@@ -27,7 +27,7 @@ library:
   source-dirs: src
 
 executables:
-  haskell-sdl-test-exe:
+  gamejam-exe:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -38,7 +38,7 @@ executables:
     - haskell-sdl-test
 
 tests:
-  haskell-sdl-test-test:
+  gamejam-test:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
