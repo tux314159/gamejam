@@ -5,6 +5,7 @@ module Main where
 import SDL
 import Control.Monad (unless)
 import GHC.Word (Word8)
+import Game.SdlUtils.Events
 
 main :: IO ()
 main = do
@@ -13,20 +14,6 @@ main = do
   renderer <- createRenderer window (-1) defaultRenderer
   gameLoop renderer 1
   destroyWindow window
-
-isQuitEvent :: Event -> Bool
-isQuitEvent event = 
-  case eventPayload event of
-       QuitEvent -> True
-       _ -> False
-
-keyPressed :: Keycode -> Event -> Bool
-keyPressed keycode event =
-  case eventPayload event of
-       KeyboardEvent kbev ->
-         keyboardEventKeyMotion kbev == Pressed &&
-           keysymKeycode (keyboardEventKeysym kbev) == keycode
-       _ -> False
 
 gameLoop :: Renderer -> Word8 -> IO()
 gameLoop renderer i = do
