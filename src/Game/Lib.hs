@@ -3,24 +3,32 @@
 module Game.Lib where
 
 import Control.Lens
-import Control.Monad.State
-import Game.SdlUtils.Events
-import GHC.Word
 import Control.Monad
+import Control.Monad.State
+import GHC.Word
+import Game.PixelRender
+import Game.SdlUtils.Events
 import SDL hiding (get, set)
 
-newtype GameState = GameState {
-  _gamei :: Word8
-}
+data GameState = GameState
+  { _gamei :: Int,
+    _globalFrame :: Frame
+  }
+
 makeLenses ''GameState
 
 gameLoop :: Renderer -> StateT GameState IO ()
 gameLoop renderer = do
   events <- pollEvents
   i <- gets _gamei
-  rendererDrawColor renderer $= V4 i 64 (255 - i) 255
+  frame <- gets _globalFrame
+  rendererDrawColor renderer $= V4 (fromIntegral i) 64 (255 - fromIntegral i) 255
   clear renderer
+
+  globalFrame %= framePutPixel (i `rem` 64, i `rem` 64) (64, 64, 64)
+  renderFrame frame renderer
+
   present renderer
-  delay 5
+  delay 15 -- should give <= 60 fps
   gamei %= \x -> (x + 1) `rem` 255
   unless (any isQuitEvent events) $ gameLoop renderer
