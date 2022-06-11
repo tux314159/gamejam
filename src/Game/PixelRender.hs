@@ -31,21 +31,6 @@ framePutPixels :: V.Vector ((Int, Int), Pixel) -> Frame -> Frame
 framePutPixels pixels frame =
   V.foldl' (\f (c, p) -> framePutPixel c p f) frame pixels
 
--- not for general use
-_renderPixel :: MonadIO m => (Int, Int) -> Pixel -> Renderer -> m ()
-_renderPixel (x, y) pixel@(r, g, b) renderer = do
-  rendererDrawColor renderer $= V4 (fi r) (fi g) (fi b) 255
-  fillRect
-    renderer
-    ( Just $
-        Rectangle
-          (P (V2 (int2CInt $ x * pixelSize) (int2CInt $ y * pixelSize)))
-          (V2 (int2CInt pixelSize) (int2CInt pixelSize))
-    )
-  where
-    int2CInt = CInt . fromIntegral
-    fi = fromIntegral
-
 renderFrame :: MonadIO m => Frame -> Renderer -> m ()
 renderFrame frame renderer = do
   col <- get $ rendererDrawColor renderer
@@ -54,8 +39,21 @@ renderFrame frame renderer = do
       coordConv n = (n `rem` fw, n `div` fw)
       fbuf = fBuffer frame
    in mapM_
-        (\n -> _renderPixel (coordConv n) (fbuf V.! n) renderer)
+        (\n -> renderPixel (coordConv n) (fbuf V.! n) renderer)
         [0 .. (fw * fh - 1)]
 
   -- reset colour
-  rendererDrawColor renderer $= col 
+  rendererDrawColor renderer $= col
+  where
+    renderPixel (x, y) pixel@(r, g, b) renderer =
+      let int2CInt = CInt . fromIntegral
+          fi = fromIntegral
+       in do
+            rendererDrawColor renderer $= V4 (fi r) (fi g) (fi b) 255
+            fillRect
+              renderer
+              ( Just $
+                  Rectangle
+                    (P (V2 (int2CInt $ x * pixelSize) (int2CInt $ y * pixelSize)))
+                    (V2 (int2CInt pixelSize) (int2CInt pixelSize))
+              )
