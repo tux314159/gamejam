@@ -12,12 +12,12 @@ typedef enum {
 } Trait;
 
 typedef struct {
-    float screen_x;
-    float screen_y;
+    double screen_x;
+    double screen_y;
 
-    float age;
+    double age;
 
-    float traits[NUM_TRAITS];
+    double traits[NUM_TRAITS];
 
 } Player;
 
