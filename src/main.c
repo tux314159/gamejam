@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
     g_seed = time(NULL);
     fill_grid(g_grid, g_seed);
     g_tick = 0;
-    g_player.traits[speed_trait] = 10;
+    g_player.traits[slowness_trait] = 10;
 
     init_sdl(atoi(argv[1]), atoi(argv[2]));
     SDL_RenderPresent(g_renderer);

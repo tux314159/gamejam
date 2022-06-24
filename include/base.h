@@ -7,12 +7,6 @@
  */
 
 #define NUM_TRAITS 4
-typedef enum {
-    speed_trait,
-    view_radius_trait,
-    strength_trait,
-    wisdom_trait,
-} Trait;
 
 typedef struct {
     int pos_x;
