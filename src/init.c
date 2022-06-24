@@ -30,7 +30,6 @@ void init_sdl(int w, int h) {
         printf("SDL initialisation error.");
         exit(1);
     }
-
     g_window   = init_mainwin(w, h);
     g_renderer = init_mainwin_renderer();
 
