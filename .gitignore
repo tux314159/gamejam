@@ -1,4 +1,2 @@
-.stack-work
-stack.yaml.lock
-gamejam.cabal
-Session.vim
+build
+.DS_Store
