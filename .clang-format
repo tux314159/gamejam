@@ -1,0 +1,7 @@
+ BasedOnStyle: LLVM
+ BreakBeforeBraces: Attach
+ IndentWidth: 4
+ AlignConsecutiveAssignments: true
+ AlignTrailingComments: true
+ AllowShortIfStatementsOnASingleLine: Always
+ AllowShortBlocksOnASingleLine: Always
