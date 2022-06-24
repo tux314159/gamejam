@@ -1,8 +1,8 @@
 #include <entity.h>
-#include <geometry.h>
 #include <global.h>
 #include <grid.h>
 #include <pair.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -34,57 +34,56 @@ void fill_grid(Grid grid, unsigned int seed) {
     // {{{ #2 generate the potion places
 
     // each potion looks like this
-    // . . .
-    // . ^ .
-    // . M .
+    // - - -
+    // - ^ -
+    // - M -
     static Entity POTION_PLACE[POTION_PLACE_SIZE][POTION_PLACE_SIZE] = {
         {obstacle_ent, obstacle_ent, obstacle_ent},
         {obstacle_ent, potion_ent, obstacle_ent},
         {obstacle_ent, monster_ent, obstacle_ent}};
 
-    GridRect potion_places[NUM_POTION_PLACES];
     Pair potion_place_entrances[NUM_POTION_PLACES];
 
     for (int i = 0; i < NUM_POTION_PLACES; i++) {
-        bool is_overlapping = false;
-        GridRect potion_place_rect;
-        do {
+        while (1) {
+            bool is_overlapping = false;
+
             int x = rand() % (GRID_WIDTH - POTION_PLACE_SIZE);
             int y = rand() % (GRID_HEIGHT - POTION_PLACE_SIZE - 1);
 
-            potion_place_rect.x      = x;
-            potion_place_rect.y      = y;
-            potion_place_rect.width  = POTION_PLACE_SIZE;
-            potion_place_rect.height = POTION_PLACE_SIZE;
+            // printf("%d %d %d\n", i, x, y);
+            // disp_grid(grid);
 
             // check for overlaps
-            for (int j = 0; j < i; j++) {
-                is_overlapping |=
-                    rect_rect_intersect(potion_place_rect, potion_places[j]);
-            }
-        } while (!is_overlapping);
-
-        // copy over the "template" POTION_PLACE into grid
-        for (int j = 0; j < POTION_PLACE_SIZE; j++) {
-            for (int k = 0; k < POTION_PLACE_SIZE; k++) {
-                int y      = j + potion_place_rect.y;
-                int x      = k + potion_place_rect.x;
-                grid[y][x] = POTION_PLACE[j][k];
-
-                if (POTION_PLACE[j][k] == monster_ent) {
-                    potion_place_entrances[i].first  = x;
-                    potion_place_entrances[i].second = y + 1;
+            for (int j = 0; j < POTION_PLACE_SIZE; j++) {
+                for (int k = 0; k < POTION_PLACE_SIZE; k++) {
+                    is_overlapping |= (grid[y + j][x + k] != empty_ent);
                 }
             }
-        }
 
-        // store it in potion_places for future overlap checks
-        potion_places[i] = potion_place_rect;
+            if (!is_overlapping) {
+                // copy over the "template" POTION_PLACE into grid
+                for (int j = 0; j < POTION_PLACE_SIZE; j++) {
+                    for (int k = 0; k < POTION_PLACE_SIZE; k++) {
+                        grid[y + j][x + k] = POTION_PLACE[j][k];
+
+                        if (POTION_PLACE[j][k] == monster_ent) {
+                            potion_place_entrances[i].first  = x;
+                            potion_place_entrances[i].second = y + 1;
+                        }
+                    }
+                }
+                break;
+            }
+        }
     }
     // }}}
 
+    // {{{ #3 Add some obstacles
+    // }}}
+
     // {{{ #4 fill it with booby traps
-    const int NUM_TRAPS = rand_range(5, 8);
+    const int NUM_TRAPS = rand_range(6, 15);
     for (int i = 0; i < NUM_TRAPS; i++) {
         bool can_place_trap = false;
         do {
@@ -98,7 +97,7 @@ void fill_grid(Grid grid, unsigned int seed) {
                                potion_place_entrances[j].second == y;
             }
 
-            if (grid[y][x] != empty_ent && !is_blocking) {
+            if (grid[y][x] == empty_ent && !is_blocking) {
                 can_place_trap = true;
                 // actually put this in the grid
                 grid[y][x] = trap_ent;

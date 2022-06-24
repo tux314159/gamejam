@@ -13,7 +13,6 @@ CFLAGS += $(shell cat compile_flags.txt | tr '\n' ' ')
 CC = gcc
 
 # Source file list
-SRCS += src/geometry.c
 SRCS += src/global.c
 SRCS += src/grid.c
 SRCS += src/init.c
