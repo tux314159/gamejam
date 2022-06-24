@@ -14,15 +14,7 @@ CC = gcc
 AR = ar -rcs $@
 
 # Source file list
-SRCS += src/dstring.c
-SRCS += src/llist.c
-SRCS += src/global.c
-SRCS += src/init.c
-SRCS += src/drivers/common.c
-SRCS += src/drivers/xterm.c
-SRCS += src/drivers/vt100.c
-SRCS += src/render.c
-SRCS += src/winsys.c
+SRCS += src/main.c
 
 TESTSRCS += $(wildcard src/tests/*.c)
 
