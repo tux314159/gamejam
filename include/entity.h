@@ -2,6 +2,7 @@
 #define ENTITY_H
 
 typedef enum {
+    empty_ent    = ' ',
     obstacle_ent = '.',
     player_ent   = 'P',
     trap_ent     = 'x',

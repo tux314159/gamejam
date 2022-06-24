@@ -5,9 +5,21 @@
 #include <pair.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-void fill_grid(Grid grid, unsigned int seed) {
-    grid[0][0] = player_ent; // player starts at top left corner
+void init_grid(Grid *grid) {
+    grid = malloc(GRID_HEIGHT * sizeof(Entity *));
+    for (int i = 0; i < GRID_HEIGHT; i++) {
+        grid[i] = malloc(GRID_WIDTH * sizeof(Entity));
+    }
+}
+
+void fill_grid(Grid *grid, unsigned int seed) {
+    for (int i = 0; i < GRID_HEIGHT; i++)
+        for (int j = 0; j < GRID_WIDTH; j++)
+            *grid[i][j] = empty_ent;
+
+    *grid[0][0] = player_ent; // player starts at top left corner
 
     srand(seed);
 
@@ -47,9 +59,9 @@ void fill_grid(Grid grid, unsigned int seed) {
         // copy over the "template" POTION_PLACE into grid
         for (int j = 0; j < POTION_PLACE_SIZE; j++) {
             for (int k = 0; k < POTION_PLACE_SIZE; k++) {
-                int y      = j + potion_place_rect.y;
-                int x      = k + potion_place_rect.x;
-                grid[y][x] = POTION_PLACE[j][k];
+                int y       = j + potion_place_rect.y;
+                int x       = k + potion_place_rect.x;
+                *grid[y][x] = POTION_PLACE[j][k];
             }
         }
 
@@ -58,10 +70,10 @@ void fill_grid(Grid grid, unsigned int seed) {
     }
 }
 
-void disp_grid(Grid grid) {
+void disp_grid(Grid *grid) {
     for (int i = 0; i < GRID_HEIGHT; i++) {
         for (int j = 0; j < GRID_WIDTH; j++) {
-            printf("%c", grid[i][j]);
+            printf("%c", *grid[i][j]);
         }
         printf("\n");
     }

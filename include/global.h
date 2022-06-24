@@ -7,7 +7,7 @@
 #define GRID_WIDTH 20
 #define GRID_HEIGHT 20
 
-Entity g_grid[GRID_WIDTH][GRID_HEIGHT];
+Entity **g_grid;
 SDL_Window *g_window;
 
 #endif
