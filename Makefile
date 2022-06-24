@@ -17,6 +17,7 @@ SRCS += src/global.c
 SRCS += src/grid.c
 SRCS += src/init.c
 SRCS += src/main.c
+SRCS += src/player.c
 SRCS += src/utilities.c
 
 TESTSRCS += $(wildcard src/tests/*.c)

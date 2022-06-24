@@ -6,7 +6,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "entity.h"
 #include "global.h"
 #include "pair.h"
 #include "utilities.h"
@@ -15,8 +14,6 @@
 #define GRID_HEIGHT 20
 #define CELL_W 40
 #define CELL_H 40
-
-typedef Entity **Grid;
 
 void init_grid(Grid *grid);
 

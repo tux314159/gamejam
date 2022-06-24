@@ -1,24 +1,9 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "entity.h"
+#include "global.h"
+#include "grid.h"
 
-#define NUM_TRAITS 4
-typedef enum {
-    speed_trait,
-    view_radius_trait,
-    strength_trait,
-    wisdom_trait,
-} Trait;
-
-typedef struct {
-    double screen_x;
-    double screen_y;
-
-    double age;
-
-    double traits[NUM_TRAITS];
-
-} Player;
+Player player_move(int dx, int dy, Player p);
 
 #endif

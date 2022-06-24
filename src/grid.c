@@ -22,8 +22,8 @@ void fill_grid(Grid grid, unsigned int seed) {
             grid[i][j] = empty_ent;
     // }}}
 
-    // {{{ #1 player starts at top left corner
-    grid[0][0] = player_ent;
+    // {{{ #1 draw the player
+    grid[g_player.pos_y][g_player.pos_x] = player_ent;
     // }}}
 
     // {{{ #2 generate the potion places
@@ -125,13 +125,16 @@ static SDL_Texture *bmp2texture(const char *fname)
     return wall_h;
 }
 
+#define MKSPRITE(name, ...) do { SDL_Texture *name##_tex = bmp2texture("assets/"#name".bmp"); { __VA_ARGS__ }; SDL_DestroyTexture(name##_tex);} while (0);
+
 void disp_grid_sdl(Grid grid)
 {
     // Initialise our textures (sprites)
-    SDL_Texture *player_tex = bmp2texture("assets/tux.bmp");
-    SDL_Texture *wall_tex = bmp2texture("assets/wall.bmp");
+    MKSPRITE(player,
+    MKSPRITE(wall,
+    MKSPRITE(potion,
 
-    SDL_SetRenderDrawColor(g_renderer, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(g_renderer, 255, 255, 255, 255);
     SDL_RenderClear(g_renderer);
 
     for (int i = 0; i < GRID_HEIGHT; i++) {
@@ -151,14 +154,16 @@ void disp_grid_sdl(Grid grid)
                 case obstacle_ent:
                     SDL_RenderCopy(g_renderer, wall_tex, NULL, &r);
                     break;
+                case potion_ent:
+                    SDL_RenderCopy(g_renderer, potion_tex, NULL, &r);
+                    break;
                 default:
+                    // for now
+                    SDL_RenderCopy(g_renderer, wall_tex, NULL, &r);
                     break;
             }
         }
     }
-    SDL_RenderPresent(g_renderer);
-
-    SDL_DestroyTexture(player_tex);
-    SDL_DestroyTexture(wall_tex);
+    )));
     return;
 }
