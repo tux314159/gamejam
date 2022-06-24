@@ -21,7 +21,7 @@ SRCS += src/utilities.c
 
 TESTSRCS += $(wildcard src/tests/*.c)
 
- ###
+###
 
 OBJS := $(SRCS:%=$(BUILDDIR)/%.o)
 OBJS := $(OBJS:.c.o=.o)

@@ -131,6 +131,9 @@ void disp_grid_sdl(Grid grid)
     SDL_Texture *player_tex = bmp2texture("assets/tux.bmp");
     SDL_Texture *wall_tex = bmp2texture("assets/wall.bmp");
 
+    SDL_SetRenderDrawColor(g_renderer, 0, 0, 0, 255);
+    SDL_RenderClear(g_renderer);
+
     for (int i = 0; i < GRID_HEIGHT; i++) {
         for (int j = 0; j < GRID_WIDTH; j++) {
             struct SDL_Rect r = {
