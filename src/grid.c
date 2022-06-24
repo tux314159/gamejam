@@ -1,12 +1,4 @@
-#include <entity.h>
-#include <global.h>
-#include <grid.h>
-#include <pair.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <utilities.h>
+#include "grid.h"
 
 #define POTION_PLACE_SIZE 3
 #define NUM_POTION_PLACES 4

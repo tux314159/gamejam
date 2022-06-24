@@ -1,4 +1,4 @@
-#include <global.h>
+#include "global.h"
 
 Entity **g_grid;
 SDL_Window *g_window;

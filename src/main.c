@@ -3,9 +3,9 @@
 #include <stdio.h>
 #include <time.h>
 
-#include <global.h>
-#include <grid.h>
-#include <init.h>
+#include "global.h"
+#include "grid.h"
+#include "init.h"
 
 int main(int argc, char **argv) {
     init_grid(&g_grid);

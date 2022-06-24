@@ -1,8 +1,15 @@
 #ifndef GRID_H
 #define GRID_H
 
-#include <entity.h>
-#include <global.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "entity.h"
+#include "global.h"
+#include "pair.h"
+#include "utilities.h"
 
 #define GRID_WIDTH 20
 #define GRID_HEIGHT 20
