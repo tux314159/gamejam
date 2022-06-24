@@ -5,10 +5,10 @@
 
 #define NUM_TRAITS 4
 typedef enum {
-    speed,
-    view_radius,
-    strength,
-    wisdom,
+    speed_trait,
+    view_radius_trait,
+    strength_trait,
+    wisdom_trait,
 } Trait;
 
 typedef struct {

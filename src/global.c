@@ -4,4 +4,4 @@
 Entity **g_grid;
 SDL_Window *g_window;
 SDL_Renderer *g_renderer;
-Player player;
+Player g_player;

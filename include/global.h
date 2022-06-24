@@ -10,6 +10,6 @@
 extern Entity **g_grid;
 extern SDL_Window *g_window;
 extern SDL_Renderer *g_renderer;
-extern Player player;
+extern Player g_player;
 
 #endif
