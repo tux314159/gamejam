@@ -47,6 +47,7 @@ $(BUILDDIR)/main : $(OBJS) SDL2-2.0.22/build/.libs/libSDL2.a
 
 SDL2-2.0.22/build/.libs/libSDL2.a : __FORCE__
 	[[ -d SDL2-2.0.22 ]] || ./fetch-sdl.sh
+	(cd SDL2-2.0.22; ./configure)
 	$(MAKE) -C SDL2-2.0.22
 
 $(BUILDDIR)/%.o : %.c
