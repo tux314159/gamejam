@@ -20,7 +20,6 @@ void init_grid(Grid *grid) {
 void fill_grid(Grid grid, unsigned int seed) {
     for (int i = 0; i < GRID_HEIGHT; i++) {
         for (int j = 0; j < GRID_WIDTH; j++) {
-            printf("%d,%d\n", i,j);
             grid[i][j] = empty_ent;
         }
     }
