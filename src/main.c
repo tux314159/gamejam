@@ -10,8 +10,11 @@ int main(int argc, char **argv) {
     SDL_Surface *screensurf;
 
     init_grid(&g_grid);
-    fill_grid(&g_grid, 1);
-    disp_grid(&g_grid);
+    puts("fsdf");
+    fill_grid(g_grid, 1);
+    puts("wwww");
+    disp_grid(g_grid);
+    puts("oifjsoaihf");
 
     (void)argc;
 
