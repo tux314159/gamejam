@@ -3,18 +3,18 @@
 #include <stdio.h>
 
 #include <init.h>
+#include <global.h>
 
 int main(int argc, char **argv)
 {
-    SDL_Window* window = NULL;
-    SDL_Surface *screensurf = NULL;
+    SDL_Surface *screensurf;
     (void)argc;
 
-    window = init_sdl(atoi(argv[1]), atoi(argv[2]));
+    g_window = init_sdl(atoi(argv[1]), atoi(argv[2]));
 
-    screensurf = SDL_GetWindowSurface(window);
+    screensurf = SDL_GetWindowSurface(g_window);
     SDL_FillRect(screensurf, NULL, SDL_MapRGB(screensurf->format, 0xFF, 0xFF, 0xFF));
-    SDL_UpdateWindowSurface(window);
+    SDL_UpdateWindowSurface(g_window);
 
     SDL_Delay(2000);
 }
