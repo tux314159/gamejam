@@ -13,8 +13,8 @@
 
 #define GRID_WIDTH 20
 #define GRID_HEIGHT 20
-#define CELL_W 20
-#define CELL_H 20
+#define CELL_W 40
+#define CELL_H 40
 
 typedef Entity **Grid;
 

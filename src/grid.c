@@ -117,8 +117,20 @@ void fill_grid(Grid grid, unsigned int seed) {
     // }}}
 }
 
+static SDL_Texture *bmp2texture(const char *fname)
+{
+    SDL_Surface *wall_h_s = SDL_LoadBMP(fname);
+    SDL_Texture *wall_h = SDL_CreateTextureFromSurface(g_renderer, wall_h_s);
+    SDL_FreeSurface(wall_h_s);
+    return wall_h;
+}
+
 void disp_grid_sdl(Grid grid)
 {
+    // Initialise our textures (sprites)
+    SDL_Texture *player_tex = bmp2texture("assets/tux.bmp");
+    SDL_Texture *wall_tex = bmp2texture("assets/wall.bmp");
+
     for (int i = 0; i < GRID_HEIGHT; i++) {
         for (int j = 0; j < GRID_WIDTH; j++) {
             struct SDL_Rect r = {
@@ -127,12 +139,23 @@ void disp_grid_sdl(Grid grid)
                 .w = CELL_W,
                 .h = CELL_H,
             };
-            int c = grid[i][j] == empty_ent ? 0 : 255;
-            SDL_SetRenderDrawColor(g_renderer, c, c, c, 255);
-            SDL_RenderFillRect(g_renderer, &r);
+            switch (grid[i][j]) {
+                case empty_ent:
+                    break;
+                case player_ent:
+                    SDL_RenderCopy(g_renderer, player_tex, NULL, &r);
+                    break;
+                case obstacle_ent:
+                    SDL_RenderCopy(g_renderer, wall_tex, NULL, &r);
+                    break;
+                default:
+                    break;
+            }
         }
     }
     SDL_RenderPresent(g_renderer);
 
+    SDL_DestroyTexture(player_tex);
+    SDL_DestroyTexture(wall_tex);
     return;
 }
