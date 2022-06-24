@@ -125,11 +125,22 @@ void fill_grid(Grid grid, unsigned int seed) {
     // }}}
 }
 
-void disp_grid(Grid grid) {
+void disp_grid_sdl(Grid grid)
+{
     for (int i = 0; i < GRID_HEIGHT; i++) {
         for (int j = 0; j < GRID_WIDTH; j++) {
-            printf("%c", grid[i][j]);
+            struct SDL_Rect r = {
+                .x = CELL_W * j,
+                .y = CELL_H * i,
+                .w = CELL_W,
+                .h = CELL_H,
+            };
+            int c = grid[i][j] == empty_ent ? 0 : 255;
+            SDL_SetRenderDrawColor(g_renderer, c, c, c, 255);
+            SDL_RenderFillRect(g_renderer, &r);
         }
-        printf("\n");
     }
+    SDL_RenderPresent(g_renderer);
+
+    return;
 }

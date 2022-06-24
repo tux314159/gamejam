@@ -17,15 +17,30 @@ static SDL_Window *init_mainwin(int w, int h)
     
     return window;
 }
+
+static SDL_Renderer *init_mainwin_renderer(void)
+{
+    SDL_Renderer *renderer = SDL_CreateRenderer(g_window, 0, SDL_RENDERER_ACCELERATED);
+
+    if (!renderer) {
+        printf("Could not create rendering context.");
+        exit(1);
+    }
+
+    return renderer;
+}
  
-SDL_Window *init_sdl(int w, int h)
+void init_sdl(int w, int h)
 {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("SDL initialisation error.");
         exit(1);
     }
 
-    return init_mainwin(w, h);
+    g_window = init_mainwin(w, h);
+    g_renderer = init_mainwin_renderer();
+
+    return;
 }
 
 void destroy_sdl(SDL_Window *window)

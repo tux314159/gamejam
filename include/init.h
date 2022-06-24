@@ -4,8 +4,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_video.h>
 #include <stdio.h>
+#include <global.h>
 
-SDL_Window *init_sdl(int w, int h);
+void init_sdl(int w, int h);
 void destroy_sdl(SDL_Window *window);
 
 #endif
