@@ -23,4 +23,5 @@ int main(int argc, char **argv) {
     SDL_UpdateWindowSurface(g_window);
 
     SDL_Delay(2000);
+    destroy_sdl(g_window);
 }
