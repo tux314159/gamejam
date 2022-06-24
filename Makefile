@@ -49,7 +49,7 @@ SDL2-2.0.22/build/.libs/libSDL2.a : __FORCE__
 	$V printf "Fetching and building external library \033[1m$(notdir $@)\033[0m...\n"
 	$V [[ -d SDL2-2.0.22 ]] || ./fetch-sdl.sh
 	$V (cd SDL2-2.0.22; ./configure)
-	$V $(MAKE) $(MAKEFLAGS) -C SDL2-2.0.22
+	$V $(MAKE) -C SDL2-2.0.22
 
 $(BUILDDIR)/%.o : %.c
 	$V mkdir -p $(dir $@)
