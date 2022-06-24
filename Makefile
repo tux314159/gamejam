@@ -21,8 +21,6 @@ SRCS += src/utilities.c
 
 TESTSRCS += $(wildcard src/tests/*.c)
 
-export CC
-
 ###
 
 OBJS := $(SRCS:%=$(BUILDDIR)/%.o)
@@ -30,6 +28,7 @@ OBJS := $(OBJS:.c.o=.o)
 DEPS := $(OBJS:.o=.d)
 
 TESTBINS = $(TESTSRCS:%.c=$(BUILDDIR)/%)
+
 ###
 
 .PHONY : all clean __FORCE__
@@ -49,9 +48,7 @@ $(BUILDDIR)/main : $(OBJS) SDL2-2.0.22/build/.libs/libSDL2.a
 
 SDL2-2.0.22/build/.libs/libSDL2.a : __FORCE__
 	$V printf "Fetching and building external library \033[1m$(notdir $@)\033[0m...\n"
-	$V [[ -d SDL2-2.0.22 ]] || ./fetch-sdl.sh
-	$V (cd SDL2-2.0.22; ./configure)
-	$V $(MAKE) -C SDL2-2.0.22
+	$V [[ -d SDL2-2.0.22 ]] || ./build-sdl.sh $(MAKEFLAGS)
 
 $(BUILDDIR)/%.o : %.c
 	$V mkdir -p $(dir $@)
