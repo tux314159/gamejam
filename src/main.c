@@ -21,9 +21,12 @@ int main(int argc, char **argv) {
     init_grid(&g_grid);
     g_seed = time(NULL);
     fill_grid(g_grid, g_seed);
+    g_tick = 0;
+    g_player.traits[speed_trait] = 10;
 
     init_sdl(atoi(argv[1]), atoi(argv[2]));
     SDL_RenderPresent(g_renderer);
+    const unsigned char *kbstate = SDL_GetKeyboardState(NULL);
 
     g_player.pos_x = 0;
     g_player.pos_y = 0;
@@ -36,31 +39,32 @@ int main(int argc, char **argv) {
                     running = false;
                     break;
                 case SDL_KEYDOWN:
-                    // player movement
                     switch (ev.key.keysym.sym) {
-                        case SDLK_UP:
-                            g_player = player_move(0, -1, g_player);
-                            break;
-                        case SDLK_DOWN:
-                            g_player = player_move(0, 1, g_player);
-                            break;
-                        case SDLK_LEFT:
-                            g_player = player_move(-1, 0, g_player);
-                            break;
-                        case SDLK_RIGHT:
-                            g_player = player_move(1, 0, g_player);
-                            break;
                         default:
                             break;
                     }
                 default:
                     break;
             }
+
         }
+
+        // player movement
+        if (kbstate[SDL_SCANCODE_UP]) {
+            g_player = player_move(0, -1, g_player);
+        } else if (kbstate[SDL_SCANCODE_DOWN]) {
+            g_player = player_move(0, 1, g_player);
+        } else if (kbstate[SDL_SCANCODE_LEFT]) {
+            g_player = player_move(-1, 0, g_player);
+        } else if (kbstate[SDL_SCANCODE_RIGHT]) {
+            g_player = player_move(1, 0, g_player);
+        }
+
         fill_grid(g_grid, g_seed);
         disp_grid_sdl(g_grid);
         SDL_RenderPresent(g_renderer);
         SDL_Delay(10);
+        g_tick++;
     }
 
     destroy_sdl(g_window);

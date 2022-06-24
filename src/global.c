@@ -5,3 +5,4 @@ SDL_Window *g_window;
 SDL_Renderer *g_renderer;
 Player g_player;
 unsigned int g_seed;
+unsigned long long g_tick;

@@ -20,7 +20,7 @@ typedef struct {
 
     double age;
 
-    double traits[NUM_TRAITS];
+    int traits[NUM_TRAITS];
 } Player;
 
 typedef enum {

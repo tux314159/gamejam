@@ -28,5 +28,6 @@
 -Wunused-parameter
 -Wwrite-strings
 -Werror
+-Wno-implicit-fallthrough
 
 -Wno-gnu-zero-variadic-macro-arguments
