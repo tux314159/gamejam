@@ -6,15 +6,15 @@ V = @
 DEBUG = -g
 OPTIM = -O3 -march=native -mtune=native
 INCLUDEDIR = -I$(HEADERDIR)
-LIBFLAGS = -L$(BUILDDIR) -lascii
+LIBFLAGS = -lSDL2
 CFLAGS = -fpic $(INCLUDEDIR) $(DEBUG) $(OPTIM) -MMD -MP -o $@
 CFLAGS += $(shell cat compile_flags.txt | tr '\n' ' ')
 
 CC = gcc
-AR = ar -rcs $@
 
 # Source file list
 SRCS += src/main.c
+SRCS += src/init.c
 
 TESTSRCS += $(wildcard src/tests/*.c)
 
@@ -27,20 +27,20 @@ DEPS := $(OBJS:.o=.d)
 TESTBINS = $(TESTSRCS:%.c=$(BUILDDIR)/%)
 ###
 
-.PHONY : all clean tests __FORCE__
+.PHONY : all clean __FORCE__
 
 .SUFFIXES :
 
 ###
 
-all : $(BUILDDIR)/libascii.a tests
+all : $(BUILDDIR)/main
 	$V echo "Build complete."
 
 -include $(DEPS)
 
-$(BUILDDIR)/libascii.a : $(OBJS)
-	$V printf "Creating static library \033[1m$(notdir $@)\033[0m...\n"
-	$V $(AR) $^
+$(BUILDDIR)/main : $(OBJS)
+	$V printf "Linking binary \033[1m$(notdir $@)\033[0m...\n"
+	$V $(CC) $(CFLAGS) $(LIBFLAGS) -o $@ $^
 
 $(BUILDDIR)/%.o : %.c
 	$V mkdir -p $(dir $@)
@@ -48,15 +48,6 @@ $(BUILDDIR)/%.o : %.c
 	$V $(CC) $(CFLAGS) -c $<
 
 ### 
-
-tests : $(TESTBINS)
-
-$(BUILDDIR)/src/tests/% : src/tests/%.c $(BUILDDIR)/libascii.a
-	$V mkdir -p $(dir $@)
-	$V printf "Compiling \033[1m$(notdir $@)\033[0m from $(notdir $<)...\n"
-	$V $(CC) $(CFLAGS) $< $(LIBFLAGS)
-
-###
 
 clean : __FORCE__
 	$V rm -rf build/
