@@ -5,8 +5,8 @@ V = @
 
 DEBUG = -g
 OPTIM = -O3 -march=native -mtune=native
-INCLUDEDIR = -I$(HEADERDIR) -ISDL2-2.0.22/include
-LIBFLAGS = -lm
+INCLUDEDIR = -I$(HEADERDIR)
+LIBFLAGS = -lSDL2
 CFLAGS = -fpic $(INCLUDEDIR) $(DEBUG) $(OPTIM) -MMD -MP -o $@
 CFLAGS += $(shell cat compile_flags.txt | tr '\n' ' ')
 
@@ -21,7 +21,7 @@ SRCS += src/utilities.c
 
 TESTSRCS += $(wildcard src/tests/*.c)
 
-###
+ ###
 
 OBJS := $(SRCS:%=$(BUILDDIR)/%.o)
 OBJS := $(OBJS:.c.o=.o)
@@ -41,13 +41,9 @@ all : $(BUILDDIR)/main
 
 -include $(DEPS)
 
-$(BUILDDIR)/main : $(OBJS) SDL2-2.0.22/build/.libs/libSDL2.a
+$(BUILDDIR)/main : $(OBJS)
 	$V printf "Linking binary \033[1m$(notdir $@)\033[0m...\n"
 	$V $(CC) $(CFLAGS) $(LIBFLAGS) -o $@ $^
-
-SDL2-2.0.22/build/.libs/libSDL2.a : __FORCE__
-	[[ -d SDL2-2.0.22 ]] || ./fetch-sdl.sh
-	$(MAKE) -C SDL2-2.0.22
 
 $(BUILDDIR)/%.o : %.c
 	$V mkdir -p $(dir $@)
