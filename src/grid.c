@@ -7,6 +7,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define POTION_PLACE_SIZE 3
+#define NUM_POTION_PLACES 4
+
 void init_grid(Grid *grid) {
     grid = malloc(GRID_HEIGHT * sizeof(Entity *));
     for (int i = 0; i < GRID_HEIGHT; i++) {
@@ -27,8 +30,6 @@ void fill_grid(Grid *grid, unsigned int seed) {
     // . . .
     // . ^ .
     // . M .
-    static const int POTION_PLACE_SIZE                               = 3;
-    static const int NUM_POTION_PLACES                               = 4;
     static Entity POTION_PLACE[POTION_PLACE_SIZE][POTION_PLACE_SIZE] = {
         {obstacle_ent, obstacle_ent, obstacle_ent},
         {obstacle_ent, potion_ent, obstacle_ent},

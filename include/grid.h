@@ -2,6 +2,7 @@
 #define GRID_H
 
 #include <entity.h>
+#include <global.h>
 
 typedef Entity **Grid;
 
