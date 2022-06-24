@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
     SDL_Surface *screensurf;
 
     init_grid(&g_grid);
-    fill_grid(g_grid, 1);
+    fill_grid(g_grid, time(NULL));
     disp_grid(g_grid);
 
     (void)argc;

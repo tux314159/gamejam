@@ -90,7 +90,9 @@ void fill_grid(Grid grid, unsigned int seed) {
         int dir         = rand_range(0, 3);
         int wall_length = rand_range(3, 10);
         // printf("%d %d %d %d\n", x, y, dir, wall_length);
-        for (int j = 0; j < wall_length && grid[x][y] == empty_ent; j++) {
+        for (int j = 0; j < wall_length && x >= 0 && x < GRID_WIDTH && y >= 0 &&
+                        y < GRID_HEIGHT && grid[x][y] == empty_ent;
+             j++) {
             grid[x][y] = obstacle_ent;
             x += dx[dir];
             y += dy[dir];
