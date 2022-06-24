@@ -21,6 +21,9 @@ void init_grid(Grid *grid) {
 void fill_grid(Grid grid, unsigned int seed) {
     srand(seed);
 
+    const int dx[] = {0, 0, 1, -1};
+    const int dy[] = {1, -1, 0, 0};
+
     // {{{ #0 fill this with empty entities first
     for (int i = 0; i < GRID_HEIGHT; i++)
         for (int j = 0; j < GRID_WIDTH; j++)
@@ -80,11 +83,24 @@ void fill_grid(Grid grid, unsigned int seed) {
     // }}}
 
     // {{{ #3 Add some obstacles
+    const int num_walls = rand_range(6, 15);
+    for (int i = 0; i < num_walls; i++) {
+        int x           = rand_range(0, GRID_WIDTH - 1);
+        int y           = rand_range(0, GRID_HEIGHT - 1);
+        int dir         = rand_range(0, 3);
+        int wall_length = rand_range(3, 10);
+        // printf("%d %d %d %d\n", x, y, dir, wall_length);
+        for (int j = 0; j < wall_length && grid[x][y] == empty_ent; j++) {
+            grid[x][y] = obstacle_ent;
+            x += dx[dir];
+            y += dy[dir];
+        }
+    }
     // }}}
 
     // {{{ #4 fill it with booby traps
-    const int NUM_TRAPS = rand_range(6, 15);
-    for (int i = 0; i < NUM_TRAPS; i++) {
+    const int num_traps = rand_range(6, 15);
+    for (int i = 0; i < num_traps; i++) {
         bool can_place_trap = false;
         do {
             int x = rand_range(0, GRID_WIDTH - 1);
