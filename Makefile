@@ -31,11 +31,15 @@ TESTBINS = $(TESTSRCS:%.c=$(BUILDDIR)/%)
 
 ###
 
-.PHONY : all clean __FORCE__
+.PHONY : all clean __FORCE__ dummy
 
 .SUFFIXES :
 
 ###
+dummy : SDL2-2.0.22/build/.libs/libSDL2.a
+
+
+-include dummy
 
 all : $(BUILDDIR)/main
 	$V echo "Build complete."
