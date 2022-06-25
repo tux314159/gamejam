@@ -6,6 +6,7 @@
  * file cos they're pretty interdependent
  */
 
+#include <SDL2/SDL_pixels.h>
 #define NUM_TRAITS 4
 
 typedef struct {
@@ -25,6 +26,11 @@ typedef enum {
     potion_ent   = '^',
     monster_ent  = 'M'
 } Entity;
+
+typedef enum {
+    white_col = 0,
+    black_col,
+} Colours;
 
 typedef Entity **Grid;
 

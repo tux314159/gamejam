@@ -6,7 +6,7 @@ V = @
 DEBUG = -g
 OPTIM = -O3 -march=native -mtune=native
 INCLUDEDIR = -I$(HEADERDIR)
-LIBFLAGS = -lSDL2
+LIBFLAGS = -lSDL2 -lSDL2_ttf
 CFLAGS = -fpic $(INCLUDEDIR) $(DEBUG) $(OPTIM) -MMD -MP -o $@
 CFLAGS += $(shell cat compile_flags.txt | tr '\n' ' ')
 

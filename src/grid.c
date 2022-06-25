@@ -10,6 +10,13 @@ void init_grid(Grid *grid) {
     }
 }
 
+void destroy_grid(Grid grid) {
+    for (int i = 0; i < GRID_HEIGHT; i++) {
+        free(grid[i]);
+    }
+    free(grid);
+}
+
 void fill_grid(Grid grid, unsigned int seed) {
     srand(seed);
 
@@ -125,7 +132,7 @@ static SDL_Texture *bmp2texture(const char *fname)
     return wall_h;
 }
 
-#define MKSPRITE(name, ...) do { SDL_Texture *name##_tex = bmp2texture("assets/"#name".bmp"); { __VA_ARGS__ }; SDL_DestroyTexture(name##_tex);} while (0);
+#define MKSPRITE(name, ...) do { SDL_Texture *name##_tex = bmp2texture("assets/gridsprites/"#name".bmp"); { __VA_ARGS__ }; SDL_DestroyTexture(name##_tex);} while (0);
 
 void disp_grid_sdl(Grid grid)
 {
@@ -140,8 +147,8 @@ void disp_grid_sdl(Grid grid)
     for (int i = 0; i < GRID_HEIGHT; i++) {
         for (int j = 0; j < GRID_WIDTH; j++) {
             struct SDL_Rect r = {
-                .x = CELL_W * j,
-                .y = CELL_H * i,
+                .x = CELL_W * j + GRID_OFFSET_X,
+                .y = CELL_H * i + GRID_OFFSET_Y,
                 .w = CELL_W,
                 .h = CELL_H,
             };
