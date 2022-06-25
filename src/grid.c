@@ -40,7 +40,7 @@ void fill_grid(Grid grid, unsigned int seed) {
     Pair potion_place_entrances[NUM_POTION_PLACES];
 
     for (int i = 0; i < NUM_POTION_PLACES; i++) {
-        while (1) {
+        for (;;) {
             bool is_overlapping = false;
 
             int x = rand() % (GRID_WIDTH - POTION_PLACE_SIZE);
