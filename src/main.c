@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
     g_player.traits[slowness_trait] = 10;
     g_seed = time(NULL);
     g_tick = 0;
-    init_grid(&g_grid);
+    init_grid(&g_grid, GRID_WIDTH, GRID_HEIGHT);
     fill_grid(g_grid, g_seed);
 
     // Setting up some shit we will need in the...

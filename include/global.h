@@ -7,7 +7,10 @@
 
 #include "base.h"
 
-extern Entity **g_grid;
+#define GRID_WIDTH 25
+#define GRID_HEIGHT 25
+
+extern struct Grid g_grid;
 extern SDL_Window *g_window;
 extern SDL_Renderer *g_renderer;
 extern Player g_player;

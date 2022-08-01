@@ -18,7 +18,7 @@ typedef struct {
     int traits[NUM_TRAITS];
 } Player;
 
-typedef enum {
+typedef enum Entity {
     empty_ent    = '.',
     obstacle_ent = '-',
     player_ent   = 'P',
@@ -32,6 +32,10 @@ typedef enum {
     black_col,
 } Colours;
 
-typedef Entity **Grid;
+struct Grid {
+    size_t w;
+    size_t h;
+    Entity **egrid; // entity grid
+};
 
 #endif
