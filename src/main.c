@@ -100,4 +100,6 @@ int main(int argc, char **argv) {
     TTF_CloseFont(sans_font);
     destroy_grid(g_grid);
     destroy_sdl(g_window);
+
+    return 0;
 }

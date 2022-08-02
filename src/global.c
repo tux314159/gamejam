@@ -1,8 +1,5 @@
 #include "global.h"
 
-#define GRID_WIDTH 25
-#define GRID_HEIGHT 25
-
 struct Grid g_grid;
 SDL_Window *g_window;
 SDL_Renderer *g_renderer;
